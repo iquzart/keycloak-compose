@@ -93,12 +93,12 @@ This will:
 1. Test the database connection.
 2. Check the Keycloak health endpoint.
 
-## Docker Compose Files
+## Compose Files
 
-The repository includes two Docker Compose files:
+The repository includes two Compose files:
 
-- `docker-compose.mssql.yml`: For Microsoft SQL Server.
-- `docker-compose.postgres.yml`: For PostgreSQL.
+- `compose.mssql.yml`: For Microsoft SQL Server.
+- `compose.postgres.yml`: For PostgreSQL.
 
 The appropriate file is selected based on the `KC_DB` variable.
 

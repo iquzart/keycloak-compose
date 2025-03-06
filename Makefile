@@ -14,13 +14,13 @@ ifeq ($(KC_DB),mssql)
     KC_DB_USERNAME = sa
     KC_DB_PASSWORD = $(SA_PASSWORD)
     TEST_DB_CMD = docker exec sqlserver /opt/mssql-tools18/bin/sqlcmd -C -U sa -P "$(SA_PASSWORD)" -Q "SELECT name FROM sys.databases"
-    DOCKER_COMPOSE_FILE = docker-compose.mssql.yml
+    DOCKER_COMPOSE_FILE = compose.mssql.yml
 else ifeq ($(KC_DB),postgres)
     KC_DB_URL = jdbc:postgresql://postgres:5432/keycloak
     KC_DB_USERNAME = $(PG_USER)
     KC_DB_PASSWORD = $(PG_PASSWORD)
     TEST_DB_CMD = docker exec postgres psql -U "$(PG_USER)" -d keycloak -c "\l"
-    DOCKER_COMPOSE_FILE = docker-compose.postgres.yml
+    DOCKER_COMPOSE_FILE = compose.postgres.yml
 else
     $(error Unsupported database type: $(KC_DB))
 endif
