@@ -1,0 +1,57 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION:-26.0.1}
+    container_name: keycloak
+    restart: always
+    entrypoint: ["/bin/bash", "-c"]
+    command: |
+      "/opt/keycloak/bin/kc.sh build && /opt/keycloak/bin/kc.sh start --optimized"
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME:-admin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD:-admin}
+      KC_LOG_CONSOLE_LEVEL: all
+      KC_HOSTNAME: localhost
+      KC_HTTP_RELATIVE_PATH: /auth
+      KC_HTTP_ENABLED: true
+      KC_HEALTH_ENABLED: true
+      KC_METRICS_ENABLED: true
+      KC_DB: mssql
+      KC_DB_URL: jdbc:sqlserver://sqlserver:1433;database=keycloak;trustServerCertificate=false;encrypt=false;
+      KC_DB_USERNAME: sa
+      KC_DB_PASSWORD: ${SA_PASSWORD}
+    ports:
+      - "8080:8080"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:${SQLSERVER_VERSION:-2019-latest}
+    container_name: sqlserver
+    restart: always
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+      SA_PASSWORD: ${SA_PASSWORD}
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          '/opt/mssql-tools18/bin/sqlcmd -C -U sa -P "$SA_PASSWORD" -Q ''SELECT 1'' || exit 1',
+        ]
+      interval: 10s
+      retries: 10
+      start_period: 30s
+    command: >
+      /bin/bash -c "
+      /opt/mssql/bin/sqlservr & 
+      echo 'Waiting for SQL Server to start...';
+      for i in {1..30}; do
+        /opt/mssql-tools18/bin/sqlcmd -C -U sa -P \"$SA_PASSWORD\" -Q \"SELECT 1\" && break || sleep 2;
+      done;
+      echo 'Creating database if not exists...';
+      /opt/mssql-tools18/bin/sqlcmd -C -U sa -P \"$SA_PASSWORD\" -Q \"IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'keycloak') BEGIN CREATE DATABASE keycloak; END\";
+      wait
+      "
