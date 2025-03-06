@@ -40,19 +40,19 @@ export KC_DB_PASSWORD
 
 # Bring up the services
 up:
-	docker-compose -f $(DOCKER_COMPOSE_FILE) up -d
+	docker compose -f $(DOCKER_COMPOSE_FILE) up -d
 
 # Bring down the services
 down:
-	docker-compose -f $(DOCKER_COMPOSE_FILE) down
+	docker compose -f $(DOCKER_COMPOSE_FILE) down
 
 # Restart the services
 restart:
-	docker-compose -f $(DOCKER_COMPOSE_FILE) restart
+	docker compose -f $(DOCKER_COMPOSE_FILE) restart
 
 # Tail logs
 logs:
-	docker-compose -f $(DOCKER_COMPOSE_FILE) logs -f
+	docker compose -f $(DOCKER_COMPOSE_FILE) logs -f
 
 # Test the DB connection (MSSQL or PostgreSQL)
 test-db:
