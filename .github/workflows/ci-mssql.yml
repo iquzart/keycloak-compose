@@ -11,7 +11,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  test-compose:
+    name: Test Keycloak with MSSQL
     runs-on: ubuntu-latest
 
     steps:
