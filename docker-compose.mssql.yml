@@ -45,6 +45,8 @@ services:
       interval: 10s
       retries: 10
       start_period: 30s
+    volumes:
+      - sqlserver-data:/var/opt/mssql
     command: >
       /bin/bash -c "
       /opt/mssql/bin/sqlservr & 
@@ -56,3 +58,5 @@ services:
       /opt/mssql-tools18/bin/sqlcmd -C -U sa -P \"$SA_PASSWORD\" -Q \"IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'keycloak') BEGIN CREATE DATABASE keycloak; END\";
       wait
       "
+volumes:
+  sqlserver-data:
