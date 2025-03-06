@@ -1,4 +1,4 @@
-# Keycloak Docker Setup for Local Development
+# Keycloak Setup for Local Development
 
 [![Keycloak Database Integration Tests](https://github.com/iquzart/keycloak-compose/actions/workflows/ci-dbs.yml/badge.svg)](https://github.com/iquzart/keycloak-compose/actions/workflows/ci-dbs.yml)
 
