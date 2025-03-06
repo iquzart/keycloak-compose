@@ -1,4 +1,5 @@
 name: Keycloak Database Integration Tests
+run-name: Keycloak Database Integration [${{ github.event.inputs.database }}]
 on:
   push:
     branches:
