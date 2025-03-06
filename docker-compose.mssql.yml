@@ -5,7 +5,7 @@ services:
     restart: always
     entrypoint: ["/bin/bash", "-c"]
     command: |
-      "/opt/keycloak/bin/kc.sh build && /opt/keycloak/bin/kc.sh start --optimized"
+      "/opt/keycloak/bin/kc.sh build && /opt/keycloak/bin/kc.sh show-config && /opt/keycloak/bin/kc.sh start --optimized"
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME:-admin}
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD:-admin}
@@ -16,9 +16,9 @@ services:
       KC_HEALTH_ENABLED: true
       KC_METRICS_ENABLED: true
       KC_DB: mssql
-      KC_DB_URL: jdbc:sqlserver://sqlserver:1433;database=keycloak;trustServerCertificate=false;encrypt=false;
-      KC_DB_USERNAME: sa
-      KC_DB_PASSWORD: ${SA_PASSWORD}
+      KC_DB_URL: ${KC_DB_URL}
+      KC_DB_USERNAME: ${KC_DB_USERNAME}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
     ports:
       - "8080:8080"
       - "8081:9000"
