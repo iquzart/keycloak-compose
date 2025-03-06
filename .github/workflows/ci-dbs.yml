@@ -1,5 +1,5 @@
 name: Keycloak Database Integration Tests
-run-name: Keycloak Database Integration [${{ github.event.inputs.database }}]
+run-name: Keycloak Database Integration [${{ inputs.database }}]
 on:
   push:
     branches:
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        database: ${{ fromJSON(github.event.inputs.database == 'All' && '["mssql", "postgres"]' || format('["{0}"]', github.event.inputs.database)) }}
+        database: ${{ fromJSON(inputs.database == 'All' && '["mssql", "postgres"]' || format('["{0}"]', inputs.database)) }}
       fail-fast: false
 
     env:
