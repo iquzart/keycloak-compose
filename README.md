@@ -106,7 +106,3 @@ The appropriate file is selected based on the `KC_DB` variable.
 
 - **Keycloak not starting**: Ensure the database is running and accessible. Check the logs using `make logs`.
 - **Database connection issues**: Verify the database credentials and ensure the database service is running.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
