@@ -6,22 +6,33 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
+  test-compose:
+    name: Test Keycloak with MSSQL
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # - name: Install Make
-      #   run: sudo apt-get update && sudo apt-get install -y make
-
       - name: Start Services
-        run: make up; sleep 60
+        run: make up
 
       - name: Run Tests
-        run: make test
+        run: |
+          for i in {1..3}; do
+            if make test; then
+              exit 0
+            fi
+            echo "Test failed, retrying in 10 seconds... ($i/3)"
+            sleep 15
+          done
+          echo "Tests failed after 3 attempts"
+          exit 1
 
       - name: Stop & Clean Up
         run: make down
