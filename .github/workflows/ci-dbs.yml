@@ -4,6 +4,17 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      database:
+        description: "Database to test (leave empty for both)"
+        required: false
+        type: choice
+        options:
+          - ""
+          - mssql
+          - postgres
+        default: ""
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -15,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        database: [mssql, postgres]
+        database: ${{ inputs.database != '' && fromJSON('["' + inputs.database + '"]') || fromJSON('["mssql", "postgres"]') }}
       fail-fast: false
 
     env:
