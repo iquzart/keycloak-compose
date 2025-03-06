@@ -8,7 +8,7 @@ up:
 	docker compose --env-file .env-ci up -d
 
 down:
-	docker compose down --volumes
+	docker compose down
 
 restart:
 	docker compose restart
@@ -20,7 +20,7 @@ test-db:
 	docker exec sqlserver /opt/mssql-tools18/bin/sqlcmd -C -U sa -P "$(SA_PASSWORD)" -Q "SELECT name FROM sys.databases"
 
 test-keycloak:
-	curl -f http://localhost:8080/auth/health/ready || exit 1
+	curl -f http://localhost:8081/auth/health/ready || exit 1
 
 test: test-db test-keycloak
 
