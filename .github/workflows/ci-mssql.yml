@@ -1,0 +1,27 @@
+name: Keycloak with MSSQL
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # - name: Install Make
+      #   run: sudo apt-get update && sudo apt-get install -y make
+
+      - name: Start Services
+        run: make up; sleep 60
+
+      - name: Run Tests
+        run: make test
+
+      - name: Stop & Clean Up
+        run: make down
