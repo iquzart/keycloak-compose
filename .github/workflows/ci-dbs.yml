@@ -1,5 +1,4 @@
-name: Keycloak with MSSQL
-
+name: Keycloak Database Integration Tests
 on:
   pull_request:
   push:
@@ -11,9 +10,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test-compose:
-    name: Test Keycloak with MSSQL
+  test-keycloak:
+    name: Test Keycloak with ${{ matrix.database }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        database: [mssql, postgres]
+      fail-fast: false
+
+    env:
+      KC_DB: ${{ matrix.database }}
 
     steps:
       - name: Checkout code
@@ -28,7 +34,7 @@ jobs:
             if make test; then
               exit 0
             fi
-            echo "Test failed, retrying in 10 seconds... ($i/3)"
+            echo "Test failed, retrying in 15 seconds... ($i/3)"
             sleep 15
           done
           echo "Tests failed after 3 attempts"
@@ -36,3 +42,4 @@ jobs:
 
       - name: Stop & Clean Up
         run: make down
+        if: always()
