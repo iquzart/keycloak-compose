@@ -1,12 +1,12 @@
 # Default settings
-KEYCLOAK_VERSION = 26.0.1
+KEYCLOAK_VERSION = 26.5.5
 SQLSERVER_VERSION = 2019-latest
 POSTGRES_VERSION = 15
 SA_PASSWORD = P@ssw0rd
 PG_USER = keycloak
 PG_PASSWORD = keycloak
 POSTGRES_DB = keycloak
-KC_DB := $(or $(KC_DB), mssql)
+KC_DB := $(or $(KC_DB), postgres)
 
 # Keycloak DB variables (set directly in the Makefile based on KC_DB)
 ifeq ($(KC_DB),mssql)
@@ -40,7 +40,7 @@ export KC_DB_PASSWORD
 
 # Bring up the services
 up:
-	docker compose -f $(DOCKER_COMPOSE_FILE) up -d
+	docker compose -f $(DOCKER_COMPOSE_FILE) up -d --build
 
 # Bring down the services
 down:
