@@ -2,7 +2,7 @@
 
 [![Keycloak Database Integration Tests](https://github.com/iquzart/keycloak-compose/actions/workflows/ci-dbs.yml/badge.svg)](https://github.com/iquzart/keycloak-compose/actions/workflows/ci-dbs.yml)
 
-This repository provides a Docker-based setup for Keycloak, with support for both SQL Server (MSSQL) and PostgreSQL as databases. It is designed for local development, testing, and experimentation with Keycloak, and is useful for testing Single Sign-On (SSO) applications.
+This repository provides a Docker-based setup for Keycloak, with support for both SQL Server (MSSQL) and PostgreSQL as databases. It includes a locally built Keycloak image with a custom monochrome login theme and automatic realm import at startup.
 
 ## Prerequisites
 
@@ -35,10 +35,16 @@ Before using this repository, ensure you have the following installed:
    make up
    ```
 
-   This will start the following services:
+   This will build and start the following services:
 
-   - **Keycloak**: Running on port `8080`.
-   - **Database**: Either Microsoft SQL Server or PostgreSQL, depending on the `KC_DB` setting.
+- **Keycloak**: Running on port `8080`, using the local `Containerfile` image build.
+- **Database**: Either Microsoft SQL Server or PostgreSQL, depending on the `KC_DB` setting.
+
+4. Open Keycloak:
+
+   - URL: `http://localhost:8080/auth`
+   - Imported realm: `poc`
+   - Theme: `blackwhite` (configured in the imported realm JSON)
 
 ## Makefile Commands
 
@@ -62,7 +68,7 @@ You can customize the setup by overriding the following environment variables:
 
 | Variable            | Default Value | Description                                       |
 | ------------------- | ------------- | ------------------------------------------------- |
-| `KEYCLOAK_VERSION`  | `26.0.1`      | The version of Keycloak to use.                   |
+| `KEYCLOAK_VERSION`  | `26.5.5`      | The version of Keycloak to use.                   |
 | `SQLSERVER_VERSION` | `2019-latest` | The version of Microsoft SQL Server to use.       |
 | `POSTGRES_VERSION`  | `15`          | The version of PostgreSQL to use.                 |
 | `SA_PASSWORD`       | `P@ssw0rd`    | The password for the SQL Server `sa` user.        |
@@ -70,6 +76,13 @@ You can customize the setup by overriding the following environment variables:
 | `PG_PASSWORD`       | `keycloak`    | The password for the PostgreSQL user.             |
 | `POSTGRES_DB`       | `keycloak`    | The name of the PostgreSQL database.              |
 | `KC_DB`             | `mssql`       | The database type to use (`mssql` or `postgres`). |
+
+### Custom Theme and Realm Import
+
+- Theme source is located at `themes/blackwhite/login`.
+- Realm import file is `realm/poc-realm.json`.
+- The image build (via `Containerfile`) copies both the theme and realm import JSON into the Keycloak image.
+- Container startup runs `start --optimized --import-realm`, so the realm is injected automatically when the container starts.
 
 ### Example: Switching to PostgreSQL
 

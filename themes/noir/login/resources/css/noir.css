@@ -1,0 +1,890 @@
+/* ============================================================
+   NOIR — Keycloak Theme
+   Minimal. Classy. Production-Grade.
+   Split layout: Brand (left) · Auth Form (right)
+   ============================================================ */
+
+/* Dubai font — available via Adobe Fonts / local system on UAE/ME devices;
+   fall back to a clean geometric sans on other systems.
+   To self-host: download Dubai from fonts.adobe.com and place in resources/fonts/ */
+@font-face {
+  font-family: 'Dubai';
+  src: local('Dubai'), local('Dubai-Regular');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Dubai';
+  src: local('Dubai Medium'), local('Dubai-Medium');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Dubai';
+  src: local('Dubai Light'), local('Dubai-Light');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Dubai';
+  src: local('Dubai Bold'), local('Dubai-Bold');
+  font-weight: 700;
+  font-style: normal;
+}
+/* Web fallback — loads only when Dubai is not installed locally */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&display=swap');
+
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --ink:        #0a0a0a;
+  --paper:      #f7f6f4;
+  --white:      #ffffff;
+  --gray-100:   #f0efed;
+  --gray-200:   #dddbd7;
+  --gray-400:   #9c9892;
+  --gray-600:   #5a5753;
+  --gray-800:   #2e2c2a;
+  --accent:     #0a0a0a;
+  --error:      #c0392b;
+  --success:    #1a6e3c;
+  --warning:    #7a5c00;
+
+  --font-display: 'Dubai', 'Barlow', system-ui, sans-serif;
+  --font-body:    'Dubai', 'Barlow', system-ui, sans-serif;
+
+  --radius-sm: 2px;
+  --radius:    4px;
+  --radius-lg: 8px;
+
+  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow:    0 4px 12px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.06);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.18);
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gray-200);
+  transition: border-color var(--transition);
+}
+
+a:hover {
+  border-color: var(--ink);
+}
+
+/* ── Split Layout ─────────────────────────────────────────── */
+#kc-container-wrapper,
+.login-pf body,
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+/* Brand Panel — left half */
+.kc-brand-panel {
+  flex: 0 0 50%;
+  background: var(--ink);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 56px 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.kc-brand-panel::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 480px;
+  height: 480px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.kc-brand-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 320px;
+  height: 320px;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.kc-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.kc-brand-logo .logo-mark {
+  width: 36px;
+  height: 36px;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kc-brand-logo .logo-mark svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--ink);
+}
+
+.kc-brand-logo .logo-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  border: none;
+}
+
+.kc-brand-center {
+  position: relative;
+  z-index: 1;
+}
+
+.kc-brand-center .tagline {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.25;
+  color: var(--white);
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+.kc-brand-center .tagline strong {
+  font-weight: 600;
+  color: var(--white);
+}
+
+.kc-brand-center .tagline em {
+  font-style: normal;
+  font-weight: 300;
+  color: rgba(255,255,255,0.45);
+}
+
+.kc-brand-center .descriptor {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.45);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+.kc-brand-footer {
+  position: relative;
+  z-index: 1;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Auth Panel — right half */
+.kc-auth-panel {
+  flex: 0 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  padding: 56px 64px;
+  overflow-y: auto;
+}
+
+.kc-auth-inner {
+  width: 100%;
+  max-width: 400px;
+  animation: fadeUp 0.4s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Keycloak overrides: wrap everything in split layout ──── */
+/* Keycloak renders a #kc-container or .container, we override */
+#kc-container,
+.container,
+#kc-header,
+.login-pf-page {
+  all: unset;
+}
+
+/* Make the Keycloak page wrapper become our split layout */
+.login-pf-page {
+  display: flex !important;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ── Form Header ──────────────────────────────────────────── */
+#kc-header,
+.kc-header {
+  margin-bottom: 40px;
+}
+
+#kc-header-wrapper,
+.kc-header-wrapper {
+  display: block;
+}
+
+.kc-page-title,
+#kc-page-title,
+h1#kc-page-title {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+
+.kc-page-subtitle {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  font-weight: 300;
+}
+
+/* ── Alert / Flash Messages ───────────────────────────────── */
+#kc-content-wrapper .alert,
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  border: 1px solid transparent;
+}
+
+.alert-error {
+  background: rgba(192,57,43,0.06);
+  border-color: rgba(192,57,43,0.2);
+  color: var(--error);
+}
+
+.alert-warning {
+  background: rgba(122,92,0,0.06);
+  border-color: rgba(122,92,0,0.2);
+  color: var(--warning);
+}
+
+.alert-success {
+  background: rgba(26,110,60,0.06);
+  border-color: rgba(26,110,60,0.2);
+  color: var(--success);
+}
+
+.alert-info {
+  background: rgba(10,10,10,0.04);
+  border-color: var(--gray-200);
+  color: var(--gray-800);
+}
+
+.kc-feedback-text {
+  font-size: 0.8125rem;
+}
+
+/* ── Form Layout ──────────────────────────────────────────── */
+#kc-form,
+.kc-form,
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group,
+.kc-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Labels ───────────────────────────────────────────────── */
+label,
+.kc-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+
+/* ── Inputs ───────────────────────────────────────────────── */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="url"],
+select,
+textarea {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--ink);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  -webkit-appearance: none;
+}
+
+input::placeholder {
+  color: var(--gray-400);
+}
+
+input:hover {
+  border-color: var(--gray-400);
+}
+
+input:focus {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(10,10,10,0.08);
+}
+
+input.error,
+input:invalid:not(:placeholder-shown) {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(192,57,43,0.08);
+}
+
+/* Password toggle wrapper */
+.kc-input-group,
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.kc-input-group input,
+.input-group input {
+  padding-right: 48px;
+}
+
+.kc-password-toggle,
+.pf-v5-c-button--plain {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-400);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color var(--transition);
+}
+
+.kc-password-toggle:hover,
+.pf-v5-c-button--plain:hover {
+  color: var(--ink);
+}
+
+/* ── Checkbox ─────────────────────────────────────────────── */
+.checkbox,
+.kc-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkbox input[type="checkbox"],
+.kc-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  accent-color: var(--ink);
+  flex-shrink: 0;
+}
+
+.checkbox label,
+.kc-checkbox label {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--gray-600);
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn,
+button,
+input[type="submit"],
+input[type="button"],
+.pf-v5-c-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1.5px solid transparent;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/* Primary */
+.btn-primary,
+input[type="submit"],
+input[type="button"],
+#kc-login,
+#kc-register,
+#kc-reset-password,
+  #registerWebAuthn,
+.pf-v5-c-button--primary {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+  width: 100%;
+}
+
+.btn-primary:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+#kc-login:hover,
+#kc-register:hover {
+  background: var(--gray-800);
+  border-color: var(--gray-800);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:active,
+input[type="submit"]:active,
+input[type="button"]:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+#registerWebAuthn {
+  opacity: 1;
+  cursor: pointer;
+}
+
+#registerWebAuthn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Secondary */
+.btn-default,
+#kc-cancel,
+.pf-v5-c-button--secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--gray-200);
+  width: 100%;
+}
+
+.btn-default:hover,
+#kc-cancel:hover {
+  border-color: var(--ink);
+  background: transparent;
+}
+
+/* ── Form Actions ─────────────────────────────────────────── */
+#kc-form-buttons,
+.kc-form-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* ── Divider ──────────────────────────────────────────────── */
+.kc-social-divider,
+#kc-social .separator,
+.separator {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 8px 0;
+  color: var(--gray-400);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.kc-social-divider::before,
+.kc-social-divider::after,
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gray-200);
+}
+
+/* ── Social Login ─────────────────────────────────────────── */
+#kc-social-providers,
+.kc-social-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kc-social-item,
+.zocial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 20px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--gray-200) !important;
+}
+
+.kc-social-item:hover,
+.zocial:hover {
+  border-color: var(--ink);
+  background: var(--gray-100);
+}
+
+/* ── Links & Footer ───────────────────────────────────────── */
+#kc-registration,
+#kc-form-login-password,
+.kc-form-footer {
+  text-align: center;
+  margin-top: 8px;
+}
+
+#kc-registration span,
+.kc-form-footer span {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+
+#kc-registration a,
+.kc-form-footer a {
+  font-size: 0.875rem;
+  color: var(--ink);
+  font-weight: 500;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+#kc-registration a:hover,
+.kc-form-footer a:hover {
+  border-color: var(--ink);
+}
+
+/* ── Back Link ────────────────────────────────────────────── */
+#back-to-application,
+.kc-back-to {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--gray-600);
+  margin-bottom: 32px;
+  border: none;
+  transition: color var(--transition);
+}
+
+#back-to-application:hover,
+.kc-back-to:hover {
+  color: var(--ink);
+}
+
+/* ── TOTP / OTP ───────────────────────────────────────────── */
+#kc-totp-settings,
+.kc-totp {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.kc-totp-qr {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+}
+
+.kc-totp-secret-key,
+.kc-totp-secret {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.8125rem;
+  color: var(--gray-800);
+  letter-spacing: 0.08em;
+  word-break: break-all;
+  text-align: center;
+}
+
+.kc-totp-step {
+  font-size: 0.8125rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+.kc-totp-step strong {
+  color: var(--ink);
+}
+
+/* ── Passkey / WebAuthn ───────────────────────────────────── */
+#kc-webauthn-authenticate,
+.kc-webauthn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.kc-webauthn-icon {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.kc-webauthn-icon svg {
+  width: 48px;
+  height: 48px;
+  color: var(--gray-400);
+}
+
+.kc-webauthn-label {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+/* ── Forgot Password ──────────────────────────────────────── */
+#kc-form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#kc-form-options .checkbox {
+  margin: 0;
+}
+
+.kc-forgot-link {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--gray-600);
+  border-bottom: 1px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.kc-forgot-link:hover {
+  color: var(--ink);
+  border-color: var(--gray-200);
+}
+
+.kc-field-error {
+  font-size: 0.75rem;
+  color: var(--error);
+  margin-top: 2px;
+  display: block;
+}
+
+/* ── Select (role, locale) ────────────────────────────────── */
+select {
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a5753' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+
+/* ── Locale Selector ──────────────────────────────────────── */
+#kc-locale-wrapper,
+.kc-locale-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+#kc-locale-dropdown,
+.kc-locale-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* ── Info / Instruction Text ──────────────────────────────── */
+#kc-info,
+.kc-info {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-200);
+}
+
+#kc-info-message,
+.kc-info-message {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* ── Spinner ──────────────────────────────────────────────── */
+.kc-spinner,
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Error Page ───────────────────────────────────────────── */
+#kc-error-message {
+  text-align: center;
+}
+
+#kc-error-message h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+#kc-error-message p {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+/* ── PF5 PatternFly overrides ─────────────────────────────── */
+.pf-v5-c-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 0;
+}
+
+.pf-v5-c-form__label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+
+.pf-v5-c-form__label-text {
+  font-size: 0.75rem;
+}
+
+.pf-v5-c-form-control {
+  border-radius: var(--radius) !important;
+  border: 1px solid var(--gray-200) !important;
+  height: 48px !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.9375rem !important;
+  color: var(--ink) !important;
+  background: var(--white) !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: border-color var(--transition), box-shadow var(--transition) !important;
+}
+
+.pf-v5-c-form-control:focus,
+.pf-v5-c-form-control:focus-within {
+  border-color: var(--ink) !important;
+  box-shadow: 0 0 0 3px rgba(10,10,10,0.08) !important;
+}
+
+.pf-v5-c-alert {
+  border-radius: var(--radius) !important;
+  font-size: 0.8125rem !important;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .kc-brand-panel {
+    display: none;
+  }
+
+  .kc-auth-panel {
+    flex: 1;
+    padding: 40px 24px;
+  }
+
+  .kc-auth-inner {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .kc-auth-panel {
+    padding: 32px 20px;
+    align-items: flex-start;
+    padding-top: 48px;
+  }
+}

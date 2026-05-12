@@ -1,11 +1,21 @@
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION:-26.0.1}
+    build:
+      context: .
+      dockerfile: Containerfile
+      args:
+        KEYCLOAK_VERSION: ${KEYCLOAK_VERSION:-26.5.5}
+        KC_DB: mssql
+        KC_HTTP_RELATIVE_PATH: /auth
+        KC_HEALTH_ENABLED: "true"
+        KC_METRICS_ENABLED: "true"
+    image: keycloak-custom:${KEYCLOAK_VERSION:-26.5.5}
     container_name: keycloak
     restart: always
-    entrypoint: ["/bin/bash", "-c"]
-    command: |
-      "/opt/keycloak/bin/kc.sh build && /opt/keycloak/bin/kc.sh show-config && /opt/keycloak/bin/kc.sh start --optimized"
+    command:
+      - start
+      - --optimized
+      - --import-realm
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME:-admin}
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD:-admin}
