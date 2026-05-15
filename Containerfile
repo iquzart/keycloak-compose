@@ -16,7 +16,8 @@ ENV KC_HTTP_RELATIVE_PATH=${KC_HTTP_RELATIVE_PATH}
 ENV KC_HEALTH_ENABLED=${KC_HEALTH_ENABLED}
 ENV KC_METRICS_ENABLED=${KC_METRICS_ENABLED}
 
-COPY themes /opt/keycloak/themes
+COPY themes/noir /opt/keycloak/themes/noir
+COPY themes/README.md /opt/keycloak/themes/README.md
 COPY realm/poc-realm.json /opt/keycloak/data/import/poc-realm.json
 
 RUN /opt/keycloak/bin/kc.sh build

@@ -23,6 +23,13 @@
       <script src="${url.resourcesPath}/${script}" type="text/javascript"></script>
     </#list>
   </#if>
+  <script type="importmap">
+    {
+      "imports": {
+        "rfc4648": "${url.resourcesCommonPath}/vendor/rfc4648/rfc4648.js"
+      }
+    }
+  </script>
 </head>
 
 <body class="${properties.kcBodyClass!}">
@@ -40,12 +47,12 @@
 
     <div class="kc-brand-center">
       <p class="tagline">
-        <strong>Secure access,</strong><br>
-        <em>elegantly delivered.</em>
+        <strong>Blueprint environment,</strong><br>
+        <em>ready for your brand and data.</em>
       </p>
       <p class="descriptor">
-        Enterprise-grade authentication<br>
-        with uncompromising simplicity.
+        This experience is a starting template.<br>
+        Update copy, visuals, and realm data before production.
       </p>
     </div>
 
