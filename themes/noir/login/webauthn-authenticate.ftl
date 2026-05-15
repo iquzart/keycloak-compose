@@ -18,13 +18,27 @@
       <div id="kc-form-buttons" class="kc-form-buttons">
         <input id="authenticateWebAuthnButton" type="button" autofocus="autofocus" value="${msg("webauthn-doAuthenticate")}" />
       </div>
+      <p id="kc-passkey-auto-hint" class="kc-page-subtitle">Waiting for your passkey prompt...</p>
     </div>
 
     <script type="module">
       <#outputformat "JavaScript">
       import { authenticateByWebAuthn } from "${url.resourcesPath}/js/webauthnAuthenticate.js";
       const authButton = document.getElementById("authenticateWebAuthnButton");
-      authButton.addEventListener("click", function() {
+      const autoHint = document.getElementById("kc-passkey-auto-hint");
+      const directPasskeyRequested = window.sessionStorage && window.sessionStorage.getItem("kcNoirDirectPasskey") === "1";
+      let authStarted = false;
+
+      const startPasskeyAuthentication = function() {
+        if (authStarted) {
+          return;
+        }
+
+        authStarted = true;
+        if (authButton) {
+          authButton.disabled = true;
+        }
+
         const input = {
           isUserIdentified: ${isUserIdentified},
           challenge: ${challenge?c},
@@ -33,8 +47,24 @@
           createTimeout: ${createTimeout?c},
           errmsg: ${msg("webauthn-unsupported-browser-text")?c}
         };
+
         authenticateByWebAuthn(input);
-      }, { once: true });
+      };
+
+      if (authButton) {
+        authButton.addEventListener("click", startPasskeyAuthentication, { once: true });
+      }
+
+      if (directPasskeyRequested) {
+        window.sessionStorage.removeItem("kcNoirDirectPasskey");
+        if (authButton) {
+          authButton.style.display = "none";
+        }
+        if (autoHint) {
+          autoHint.style.display = "block";
+        }
+        startPasskeyAuthentication();
+      }
       </#outputformat>
     </script>
   <#elseif section = "info">

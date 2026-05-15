@@ -20,7 +20,7 @@
   "browserFlow": "browser-dual-auth",
   "resetCredentialsFlow": "reset-credentials-totp",
   "loginTheme": "noir",
-  "accountTheme": "keycloak.v2",
+  "accountTheme": "noir",
   "adminTheme": "keycloak.v2",
   "emailTheme": "keycloak.v2",
   "sslRequired": "none",
@@ -36,7 +36,7 @@
   "otpPolicyPeriod": 30,
   "otpPolicyLookAheadWindow": 1,
   "webAuthnPolicyRpEntityName": "Example.com Identity",
-  "webAuthnPolicyRpId": "example.com",
+  "webAuthnPolicyRpId": "localhost",
   "webAuthnPolicySignatureAlgorithms": [
     "ES256",
     "RS256"
@@ -48,7 +48,7 @@
   "webAuthnPolicyCreateTimeout": 0,
   "webAuthnPolicyAvoidSameAuthenticatorRegister": false,
   "webAuthnPolicyPasswordlessRpEntityName": "Example.com Identity",
-  "webAuthnPolicyPasswordlessRpId": "example.com",
+  "webAuthnPolicyPasswordlessRpId": "localhost",
   "webAuthnPolicyPasswordlessSignatureAlgorithms": [
     "ES256",
     "RS256"
@@ -229,7 +229,8 @@
       "serviceAccountsEnabled": false,
       "secret": "example-dashboard-super-secret-poc",
       "redirectUris": [
-        "https://examples-poc.example.com/login"
+        "https://examples-poc.example.com/login",
+        "https://examples-poc.example.com/account"
       ],
       "webOrigins": [
         "https://examples-poc.example.com"
@@ -237,7 +238,7 @@
       "protocol": "openid-connect",
       "attributes": {
         "pkce.code.challenge.method": "",
-        "post.logout.redirect.uris": "https://examples-poc.example.com/login"
+        "post.logout.redirect.uris": "https://examples-poc.example.com/login https://examples-poc.example.com/account"
       },
       "protocolMappers": [
         {
