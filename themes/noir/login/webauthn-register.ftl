@@ -51,15 +51,11 @@
         }
       };
 
-      const registerButton = document.getElementById("registerWebAuthn");
-      if (registerButton) {
-        registerButton.addEventListener("click", window.kcNoirRegisterWebAuthn, { once: true });
-      }
       </#outputformat>
     </script>
 
     <div id="kc-form-buttons" class="kc-form-buttons">
-      <input type="button" id="registerWebAuthn" value="${msg("doRegisterSecurityKey")}" onclick="if (window.kcNoirRegisterWebAuthn) window.kcNoirRegisterWebAuthn();" />
+      <input type="button" id="registerWebAuthn" value="${msg("doRegisterSecurityKey")}" onclick="this.disabled=true;if (window.kcNoirRegisterWebAuthn) window.kcNoirRegisterWebAuthn();" />
     </div>
 
     <#if !isSetRetry?has_content && isAppInitiatedAction?has_content>

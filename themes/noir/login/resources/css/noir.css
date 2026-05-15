@@ -509,6 +509,32 @@ input[type="button"]:active {
   box-shadow: none;
 }
 
+#kc-passkey-login {
+  background: #242424;
+  border-color: #242424;
+  color: #f7f7f7;
+}
+
+#kc-passkey-login:hover {
+  background: #313131;
+  border-color: #313131;
+}
+
+#kc-passkey-login .kc-passkey-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+  opacity: 0.85;
+  filter: invert(1);
+}
+
+#kc-passkey-auto-hint {
+  display: none;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
 #registerWebAuthn {
   opacity: 1;
   cursor: pointer;

@@ -114,6 +114,20 @@
       </div>
     </#if>
 
+    <#if auth?has_content && auth.showTryAnotherWayLink()>
+      <div class="kc-social-divider separator">
+        <span>or</span>
+      </div>
+
+      <form id="kc-passkey-login-form" action="${url.loginAction}" method="post" class="kc-social-section">
+        <input type="hidden" name="tryAnotherWay" value="on"/>
+        <button type="submit" id="kc-passkey-login" class="btn-primary" onclick="window.sessionStorage.setItem('kcNoirDirectPasskey','1');">
+          <img class="kc-passkey-icon" src="${url.resourcesPath}/img/PasskeyStreamlineSymbols.svg" alt="" aria-hidden="true" />
+          <span>Sign in with passkey</span>
+        </button>
+      </form>
+    </#if>
+
   </#if>
 
 </@layout.registrationLayout>

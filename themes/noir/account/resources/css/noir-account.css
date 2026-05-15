@@ -1,0 +1,472 @@
+@font-face {
+  font-family: 'Dubai';
+  src: local('Dubai'), local('Dubai-Regular');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Dubai';
+  src: local('Dubai Medium'), local('Dubai-Medium');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Dubai';
+  src: local('Dubai Bold'), local('Dubai-Bold');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap');
+
+:root {
+  --ink: #0a0a0a;
+  --paper: #f7f6f4;
+  --card: #ffffff;
+  --line: #dddbd7;
+  --muted: #5a5753;
+  --soft: #f0efed;
+  --accent: #2e2c2a;
+  --focus: #0a0a0a;
+  --danger: #c0392b;
+  --ok: #1a6e3c;
+  --warning: #7a5c00;
+
+  --font-body: 'Dubai', 'Barlow', system-ui, sans-serif;
+  --font-display: 'Dubai', 'Barlow', system-ui, sans-serif;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+
+  --shadow-soft: 0 1px 2px rgba(10, 10, 10, 0.04), 0 8px 24px rgba(10, 10, 10, 0.08);
+  --shadow-lift: 0 16px 34px rgba(10, 10, 10, 0.14);
+  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body[data-page-id='account'] {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background:
+    radial-gradient(900px 460px at -8% -8%, rgba(10, 10, 10, 0.1), transparent 62%),
+    radial-gradient(700px 320px at 108% 12%, rgba(46, 44, 42, 0.14), transparent 64%),
+    var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --pf-v5-global--FontFamily--sans-serif: var(--font-body);
+  --pf-v5-global--Color--100: var(--ink);
+  --pf-v5-global--Color--200: var(--muted);
+  --pf-v5-global--primary-color--100: var(--ink);
+  --pf-v5-global--primary-color--200: #242424;
+  --pf-v5-global--active-color--100: var(--ink);
+  --pf-v5-global--BorderColor--100: var(--line);
+  --pf-v5-global--BackgroundColor--100: var(--paper);
+  --pf-v5-global--BackgroundColor--150: var(--soft);
+  --pf-v5-global--BackgroundColor--200: var(--card);
+}
+
+body[data-page-id='account'] a {
+  transition: color var(--transition), border-color var(--transition), background-color var(--transition), transform var(--transition);
+}
+
+body[data-page-id='account'] svg,
+body[data-page-id='account'] .pf-v5-c-alert__icon,
+body[data-page-id='account'] .pf-v5-c-button__icon,
+body[data-page-id='account'] .pf-v5-c-nav__link-toggle-icon,
+body[data-page-id='account'] .pf-v5-c-nav__toggle-icon {
+  color: var(--ink);
+  fill: currentColor;
+}
+
+body[data-page-id='account'] .pf-v5-c-masthead__toggle .pf-v5-c-button,
+body[data-page-id='account'] .pf-v5-c-masthead__toggle .pf-v5-c-button.pf-m-plain,
+body[data-page-id='account'] .pf-v5-c-masthead__toggle .pf-v5-c-button.pf-m-plain svg,
+body[data-page-id='account'] .pf-v5-c-toolbar .pf-v5-c-menu-toggle,
+body[data-page-id='account'] .pf-v5-c-toolbar .pf-v5-c-menu-toggle__text,
+body[data-page-id='account'] .pf-v5-c-toolbar .pf-v5-c-menu-toggle__icon,
+body[data-page-id='account'] .pf-v5-c-toolbar .pf-v5-c-dropdown__toggle,
+body[data-page-id='account'] .pf-v5-c-toolbar .pf-v5-c-dropdown__toggle-text,
+body[data-page-id='account'] .pf-v5-c-toolbar .pf-v5-c-dropdown__toggle-icon,
+body[data-page-id='account'] .pf-v5-c-toolbar .pf-v5-c-dropdown__menu-toggle,
+body[data-page-id='account'] .pf-v5-c-toolbar .pf-v5-c-dropdown__menu-toggle .pf-v5-c-dropdown__toggle-text,
+body[data-page-id='account'] .pf-v5-c-toolbar .pf-v5-c-dropdown__menu-toggle .pf-v5-c-dropdown__toggle-icon {
+  color: var(--ink);
+  fill: currentColor;
+}
+
+body[data-page-id='account'] .pf-v5-c-page {
+  min-height: 100vh;
+  background: transparent;
+}
+
+body[data-page-id='account'] .pf-v5-c-page__sidebar {
+  background: transparent;
+  border-inline-end: none;
+}
+
+body[data-page-id='account'] .pf-v5-c-page__sidebar-body {
+  width: 280px;
+  margin: 18px 0 18px 18px;
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+}
+
+body[data-page-id='account'] .pf-v5-c-page__main {
+  background: transparent;
+}
+
+body[data-page-id='account'] .pf-v5-c-page__main-section {
+  background: transparent;
+  padding: 24px;
+}
+
+body[data-page-id='account'] .pf-v5-c-page__main-section:first-child {
+  padding-top: 18px;
+}
+
+body[data-page-id='account'] .pf-v5-c-masthead {
+  background: transparent;
+  box-shadow: none;
+  border-block-end: none;
+  padding: 16px 24px 0;
+}
+
+body[data-page-id='account'] .pf-v5-c-masthead__main,
+body[data-page-id='account'] .pf-v5-c-masthead__content {
+  min-height: 64px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-soft);
+  padding-inline: 16px;
+}
+
+body[data-page-id='account'] .pf-v5-c-brand {
+  height: 28px;
+  width: auto;
+}
+
+body[data-page-id='account'] .pf-v5-c-nav {
+  padding: 10px;
+}
+
+body[data-page-id='account'] .pf-v5-c-nav__list {
+  gap: 4px;
+}
+
+body[data-page-id='account'] .pf-v5-c-nav__link,
+body[data-page-id='account'] .pf-v5-c-nav__subnav .pf-v5-c-nav__link {
+  border-radius: 10px;
+  color: var(--muted);
+  font-weight: 500;
+  border: none;
+  padding-block: 10px;
+}
+
+body[data-page-id='account'] .pf-v5-c-nav__link:hover,
+body[data-page-id='account'] .pf-v5-c-nav__subnav .pf-v5-c-nav__link:hover {
+  color: var(--ink);
+  background: rgba(10, 10, 10, 0.06);
+}
+
+body[data-page-id='account'] .pf-v5-c-nav__link.pf-m-current,
+body[data-page-id='account'] .pf-v5-c-nav__subnav .pf-v5-c-nav__link.pf-m-current {
+  color: var(--ink);
+  background: linear-gradient(145deg, #f0efed 0%, #dddbd7 100%);
+  box-shadow: 0 10px 22px rgba(10, 10, 10, 0.12);
+}
+
+body[data-page-id='account'] .pf-v5-c-nav__link.pf-m-current .pf-v5-c-nav__link-text,
+body[data-page-id='account'] .pf-v5-c-nav__subnav .pf-v5-c-nav__link.pf-m-current .pf-v5-c-nav__link-text,
+body[data-page-id='account'] .pf-v5-c-nav__link.pf-m-current .pf-v5-c-nav__link-toggle-icon,
+body[data-page-id='account'] .pf-v5-c-nav__subnav .pf-v5-c-nav__link.pf-m-current .pf-v5-c-nav__link-toggle-icon,
+body[data-page-id='account'] .pf-v5-c-nav__link.pf-m-current svg,
+body[data-page-id='account'] .pf-v5-c-nav__subnav .pf-v5-c-nav__link.pf-m-current svg {
+  color: var(--ink);
+  fill: currentColor;
+}
+
+body[data-page-id='account'] .pf-v5-c-nav__item.pf-m-expandable::after {
+  border-radius: 8px;
+}
+
+body[data-page-id='account'] .pf-v5-c-title {
+  font-family: var(--font-display);
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+body[data-page-id='account'] .pf-v5-c-content,
+body[data-page-id='account'] .pf-v5-c-content p,
+body[data-page-id='account'] .pf-v5-c-content li,
+body[data-page-id='account'] .pf-v5-c-form__label-text {
+  color: var(--muted);
+}
+
+body[data-page-id='account'] .pf-v5-c-content h1,
+body[data-page-id='account'] .pf-v5-c-content h2,
+body[data-page-id='account'] .pf-v5-c-content h3 {
+  color: var(--ink);
+  font-family: var(--font-display);
+}
+
+body[data-page-id='account'] .pf-v5-c-card,
+body[data-page-id='account'] .pf-v5-c-description-list,
+body[data-page-id='account'] .pf-v5-c-data-list,
+body[data-page-id='account'] .pf-v5-c-empty-state,
+body[data-page-id='account'] .pf-v5-c-expandable-section {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-soft);
+}
+
+body[data-page-id='account'] .pf-v5-c-card {
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+body[data-page-id='account'] .pf-v5-c-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+  border-color: rgba(10, 10, 10, 0.18);
+}
+
+body[data-page-id='account'] .pf-v5-c-card__title,
+body[data-page-id='account'] .pf-v5-c-card__header {
+  color: var(--ink);
+}
+
+body[data-page-id='account'] .pf-v5-c-description-list__term,
+body[data-page-id='account'] .pf-v5-c-data-list__cell {
+  color: var(--ink);
+}
+
+body[data-page-id='account'] .pf-v5-c-divider {
+  --pf-v5-c-divider--BorderColor: rgba(10, 10, 10, 0.1);
+}
+
+body[data-page-id='account'] .pf-v5-c-toolbar {
+  border-radius: var(--radius-sm);
+  background: transparent;
+}
+
+body[data-page-id='account'] .pf-v5-c-data-list__item {
+  border-top: none;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+  transition: background-color var(--transition);
+}
+
+body[data-page-id='account'] .pf-v5-c-data-list__item:last-child {
+  border-bottom: none;
+}
+
+body[data-page-id='account'] .pf-v5-c-data-list__item:hover {
+  background: rgba(10, 10, 10, 0.03);
+}
+
+body[data-page-id='account'] .pf-v5-c-label {
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+body[data-page-id='account'] .pf-v5-c-label.pf-m-blue,
+body[data-page-id='account'] .pf-v5-c-label.pf-m-green,
+body[data-page-id='account'] .pf-v5-c-label.pf-m-orange,
+body[data-page-id='account'] .pf-v5-c-label.pf-m-purple,
+body[data-page-id='account'] .pf-v5-c-label.pf-m-cyan {
+  --pf-v5-c-label--BackgroundColor: rgba(10, 10, 10, 0.08);
+  --pf-v5-c-label__content--Color: var(--ink);
+}
+
+body[data-page-id='account'] .pf-v5-c-form-control,
+body[data-page-id='account'] .pf-v5-c-form-control:where(input, textarea, select),
+body[data-page-id='account'] .pf-v5-c-input-group .pf-v5-c-form-control {
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  box-shadow: none;
+  transition: border-color var(--transition), box-shadow var(--transition), background-color var(--transition);
+}
+
+body[data-page-id='account'] .pf-v5-c-form-control::placeholder {
+  color: rgba(90, 87, 83, 0.8);
+}
+
+body[data-page-id='account'] .pf-v5-c-form-control:hover {
+  border-color: rgba(10, 10, 10, 0.32);
+}
+
+body[data-page-id='account'] .pf-v5-c-form-control:focus,
+body[data-page-id='account'] .pf-v5-c-form-control.pf-m-focus {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.12);
+}
+
+body[data-page-id='account'] .pf-v5-c-check__label,
+body[data-page-id='account'] .pf-v5-c-radio__label {
+  color: var(--ink);
+}
+
+body[data-page-id='account'] .pf-v5-c-switch__toggle,
+body[data-page-id='account'] .pf-v5-c-switch__toggle::before {
+  transition: transform var(--transition), background-color var(--transition);
+}
+
+body[data-page-id='account'] .pf-v5-c-button {
+  border-radius: var(--radius-xs);
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background-color var(--transition);
+}
+
+body[data-page-id='account'] .pf-v5-c-button.pf-m-primary {
+  background: linear-gradient(155deg, #f0efed 0%, #dddbd7 100%);
+  border-color: #c8c4bf;
+  color: var(--ink);
+  box-shadow: 0 8px 16px rgba(10, 10, 10, 0.12);
+}
+
+body[data-page-id='account'] .pf-v5-c-button.pf-m-primary:hover {
+  background: #e3e0db;
+  border-color: #b8b2ab;
+  transform: translateY(-1px);
+}
+
+body[data-page-id='account'] .pf-v5-c-button.pf-m-secondary,
+body[data-page-id='account'] .pf-v5-c-button.pf-m-link,
+body[data-page-id='account'] .pf-v5-c-button.pf-m-control {
+  color: var(--ink);
+  border-color: var(--line);
+  background: #fff;
+}
+
+body[data-page-id='account'] .pf-v5-c-button.pf-m-secondary:hover,
+body[data-page-id='account'] .pf-v5-c-button.pf-m-control:hover {
+  border-color: rgba(10, 10, 10, 0.3);
+  background: var(--soft);
+}
+
+body[data-page-id='account'] .pf-v5-c-button.pf-m-danger {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: var(--ink);
+}
+
+body[data-page-id='account'] .pf-v5-c-modal-box,
+body[data-page-id='account'] .pf-v5-c-drawer__content {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(10, 10, 10, 0.1);
+  background: #fff;
+  box-shadow: 0 26px 56px rgba(10, 10, 10, 0.2);
+}
+
+body[data-page-id='account'] .pf-v5-c-modal-box__title {
+  font-family: var(--font-display);
+}
+
+body[data-page-id='account'] .pf-v5-c-alert {
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(10, 10, 10, 0.1);
+}
+
+body[data-page-id='account'] .pf-v5-c-alert.pf-m-success {
+  --pf-v5-c-alert--Color: var(--ok);
+}
+
+body[data-page-id='account'] .pf-v5-c-alert.pf-m-warning {
+  --pf-v5-c-alert--Color: var(--warning);
+}
+
+body[data-page-id='account'] .pf-v5-c-alert.pf-m-danger {
+  --pf-v5-c-alert--Color: var(--danger);
+}
+
+body[data-page-id='account'] .pf-v5-c-empty-state__content {
+  padding: 12px;
+}
+
+body[data-page-id='account'] .pf-v5-c-empty-state__title-text {
+  font-family: var(--font-display);
+  color: var(--ink);
+}
+
+body[data-page-id='account'] .pf-v5-c-popover,
+body[data-page-id='account'] .pf-v5-c-menu {
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(10, 10, 10, 0.1);
+  box-shadow: var(--shadow-soft);
+}
+
+body[data-page-id='account'] .pf-v5-c-menu__item:hover,
+body[data-page-id='account'] .pf-v5-c-menu__item.pf-m-focused {
+  background: rgba(10, 10, 10, 0.06);
+}
+
+body[data-page-id='account'] .pf-v5-c-badge,
+body[data-page-id='account'] .pf-v5-c-chip {
+  border-radius: 999px;
+}
+
+body[data-page-id='account'] :focus-visible {
+  outline: 3px solid rgba(10, 10, 10, 0.18);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1200px) {
+  body[data-page-id='account'] .pf-v5-c-page__sidebar-body {
+    width: 252px;
+  }
+
+  body[data-page-id='account'] .pf-v5-c-page__main-section {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  body[data-page-id='account'] .pf-v5-c-masthead {
+    padding: 12px 14px 0;
+  }
+
+  body[data-page-id='account'] .pf-v5-c-page__main-section {
+    padding: 14px;
+  }
+
+  body[data-page-id='account'] .pf-v5-c-page__sidebar-body {
+    margin: 10px;
+    height: calc(100% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  body[data-page-id='account'] {
+    background:
+      radial-gradient(600px 280px at -8% -8%, rgba(10, 10, 10, 0.08), transparent 62%),
+      var(--paper);
+  }
+
+  body[data-page-id='account'] .pf-v5-c-page__main-section {
+    padding: 12px;
+  }
+
+  body[data-page-id='account'] .pf-v5-c-card,
+  body[data-page-id='account'] .pf-v5-c-description-list,
+  body[data-page-id='account'] .pf-v5-c-data-list {
+    border-radius: var(--radius-sm);
+  }
+}

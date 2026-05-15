@@ -42,9 +42,21 @@ Before using this repository, ensure you have the following installed:
 
 4. Open Keycloak:
 
-   - URL: `http://localhost:8080/auth`
-   - Imported realm: `poc`
-   - Theme: `blackwhite` (configured in the imported realm JSON)
+    - URL: `http://localhost:8080/auth`
+    - Imported realm: `poc`
+    - Theme: `noir` (configured in the imported realm JSON)
+
+## Theme Preview
+
+The custom `noir` theme includes styled flows for login, passkey registration, and TOTP enrollment.
+
+| Login | Passkey Registration |
+| ----- | -------------------- |
+| ![Login page](docs/login-page.png) | ![Passkey registration](docs/passkey-registration.png) |
+
+| TOTP Registration | TOTP Challenge |
+| ----------------- | -------------- |
+| ![TOTP registration](docs/totp-registration.png) | ![TOTP challenge](docs/totp.png) |
 
 ## Makefile Commands
 
@@ -79,7 +91,7 @@ You can customize the setup by overriding the following environment variables:
 
 ### Custom Theme and Realm Import
 
-- Theme source is located at `themes/blackwhite/login`.
+- Theme source is located at `themes/noir/login`.
 - Realm import file is `realm/poc-realm.json`.
 - The image build (via `Containerfile`) copies both the theme and realm import JSON into the Keycloak image.
 - Container startup runs `start --optimized --import-realm`, so the realm is injected automatically when the container starts.
